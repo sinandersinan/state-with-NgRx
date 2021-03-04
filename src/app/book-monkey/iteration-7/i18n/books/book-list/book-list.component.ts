@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 
 import { Book } from '../../shared/book';
 import { BookStoreService } from '../../shared/book-store.service';
+import {Store} from '@ngrx/store';
+import {loadBooks} from '../store/book.actions';
 
 @Component({
   selector: 'bm-book-list',
@@ -12,9 +14,9 @@ import { BookStoreService } from '../../shared/book-store.service';
 export class BookListComponent implements OnInit {
   books$: Observable<Book[]>;
 
-  constructor(private bs: BookStoreService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.books$ = this.bs.getAll();
+    this.store.dispatch(loadBooks());
   }
 }
